@@ -1,3 +1,9 @@
+libkolabxml (1.1.0-0~kolab1) UNRELEASED; urgency=medium
+
+  * new upstream release.
+
+ -- Sandro Knauß <bugs@sandroknauss.de>  Mon, 02 Feb 2015 12:28:38 +0100
+
 libkolabxml (1.0.2-2) unstable; urgency=medium
 
   * Fix symbols file. Part of it was accidentally deleted.
