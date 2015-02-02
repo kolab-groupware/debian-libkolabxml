@@ -5,7 +5,12 @@ set -e
 #EXTRA#
 #DEBHELPER#
 
-inidir=/etc/php5/mods-available
+if [ -d "/etc/php5/mods-available" ]; then
+    inidir=/etc/php5/mods-available
+else
+    inidir=/etc/php5/conf.d/
+fi
+
 module=kolabformat
 package=php-${module}
 inifile=${module}.ini
@@ -29,7 +34,9 @@ if [ "$1" = "configure" ]; then
 	fi
 
 	# Enable the module
-	php5enmod ${module}/${priority:-20}
+    if [ -x "$(which php5enmod 2>/dev/null)" ]; then
+    	php5enmod ${module}/${priority:-20}
+    fi
 fi
 
 exit 0

@@ -11,8 +11,5 @@ usr/include/kolabxml/kolabfreebusy.h
 usr/include/kolabxml/kolabjournal.h
 usr/include/kolabxml/kolabnote.h
 usr/include/kolabxml/kolabtodo.h
-usr/lib/cmake/Libkolabxml/LibkolabxmlConfig.cmake
-usr/lib/cmake/Libkolabxml/LibkolabxmlConfigVersion.cmake
-usr/lib/cmake/Libkolabxml/LibkolabxmlTargets-*.cmake
-usr/lib/cmake/Libkolabxml/LibkolabxmlTargets.cmake
+usr/lib/cmake/Libkolabxml/*.cmake
 usr/lib/libkolabxml.so

@@ -1,16 +1,16 @@
 #!/usr/bin/make -f
 
 PHPAPI := $(shell php-config --phpapi)
-PYTHON := $(shell pyversions -d)
 PYTHON_SITEARCH := $(shell python -c 'from distutils.sysconfig import get_python_lib; print get_python_lib(1)')
 
 # Uncomment this to turn on verbose mode.
-#export DH_VERBOSE=1
+export DH_VERBOSE=1
+export DH_OPTIONS=-v
 
 export DEB_LDFLAGS_MAINT_APPEND="-Wl,--as-needed"
 
 %:
-	dh $@ --parallel --with python2,pkgkde_symbolshelper
+	dh $@ --parallel --with python2
 
 override_dh_gencontrol:
 	echo "php:Depends=phpapi-${PHPAPI}" >> debian/php-kolabformat.substvars
@@ -18,16 +18,12 @@ override_dh_gencontrol:
 
 override_dh_auto_configure:
 	dh_auto_configure -- \
+		-DSWIG=/usr/bin/swig2.0 \
 		-DPHP_BINDINGS=ON \
 		-DPYTHON_BINDINGS=ON \
-		-DPYTHON_INSTALL_DIR=$(PYTHON_SITEARCH) \
-		-DPYTHON_INCLUDE_DIR=/usr/include/$(PYTHON) \
-		-DPYTHON_LIBRARY=/usr/lib/$(DEB_BUILD_MULTIARCH)/lib$(PYTHON).so
+		-DPYTHON_INSTALL_DIR=$(PYTHON_SITEARCH)
 
 override_dh_install:
 	mkdir -p debian/tmp/usr/share/php
 	mv debian/tmp/usr/lib/php5/$(PHPAPI)/kolabformat.php debian/tmp/usr/share/php/kolabformat.php
-	dh_install --fail-missing
-
-override_dh_makeshlibs:
-	dh_makeshlibs -V 'libkolabxml1 (>= 1.0.1)'
+	dh_install --list-missing
